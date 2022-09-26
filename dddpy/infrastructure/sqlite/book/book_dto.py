@@ -4,6 +4,7 @@ from typing import Union
 from sqlalchemy import Column, Integer, String
 
 from dddpy.domain.book import Book, Isbn
+from dddpy.domain.status.status import Status
 from dddpy.infrastructure.sqlite.database import Base
 from dddpy.usecase.book import BookReadModel
 
@@ -23,6 +24,7 @@ class BookDTO(Base):
     read_page: Union[int, Column] = Column(Integer, nullable=False, default=0)
     created_at: Union[int, Column] = Column(Integer, index=True, nullable=False)
     updated_at: Union[int, Column] = Column(Integer, index=True, nullable=False)
+    status = Column(EnumType(Status), nullable=False, comment='割引適用ルール')
 
     def to_entity(self) -> Book:
         return Book(
