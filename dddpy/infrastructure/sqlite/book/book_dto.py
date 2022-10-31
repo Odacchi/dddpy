@@ -3,6 +3,7 @@ from typing import Union
 
 from sqlalchemy import Column, Integer, String
 
+from dddpy.infrastructure.enum_type import EnumType
 from dddpy.domain.book import Book, Isbn
 from dddpy.domain.status.status import Status
 from dddpy.infrastructure.sqlite.database import Base
