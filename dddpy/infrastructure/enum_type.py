@@ -2,8 +2,7 @@ from typing import Type
 
 import sqlalchemy as sa
 
-from regi.utils.enum_meta import OpenapiEnum
-
+from domain.ddd_enum import DddEnum
 
 class EnumType(sa.types.TypeDecorator):
     """ PythonでのEnum ⇔ DBでのInt を相互接続するためのデコレーター"""
@@ -11,11 +10,11 @@ class EnumType(sa.types.TypeDecorator):
 
     impl = sa.Integer
 
-    def __init__(self, enum_class: Type[OpenapiEnum], *args, **kwargs):
+    def __init__(self, enum_class: Type[DddEnum], *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._enum_class = enum_class
 
-    def process_bind_param(self, value: OpenapiEnum, dialect) -> int:
+    def process_bind_param(self, value: DddEnum, dialect) -> int:
         if value is not None:
             if not isinstance(value, self._enum_class):
                 raise TypeError("Value should %s type" % self._enum_class)
